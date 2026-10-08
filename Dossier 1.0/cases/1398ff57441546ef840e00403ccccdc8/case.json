@@ -1,0 +1,728 @@
+{
+  "schema": 1,
+  "name": "Jordan Rivera \u2014 Target Profile (Example)",
+  "created": "2026-09-14T09:00:00+00:00",
+  "modified": "2026-10-07T18:00:00+00:00",
+  "rev": 1,
+  "activeMap": "investigation",
+  "owner": "",
+  "assignees": [],
+  "meta": {
+    "caseNumber": "OSINT-2026-001",
+    "analyst": "R. Hale",
+    "classification": "TLP:AMBER",
+    "summary": "Example OSINT target profile demonstrating the Target Profile map: identifiers, social media, breaches, address, and related persons, with a timeline built from dated findings. All data is fictional."
+  },
+  "customCategories": [],
+  "customFlags": [],
+  "events": [
+    {
+      "id": "efefbf8bf7af",
+      "timestamp": "2026-09-14T09:00",
+      "title": "Investigation opened",
+      "notes": "Scope: OSINT target profile for a fictional subject. Example case.",
+      "nodeId": null
+    },
+    {
+      "id": "ea0b928952c9",
+      "timestamp": "2026-10-06T15:00",
+      "title": "Findings report delivered",
+      "notes": "Draft report shared with requester; pending review.",
+      "nodeId": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev5c12ec1df4",
+      "stored": "a17e156c10ad46808dd2357c820d4c7b.txt",
+      "filename": "2012-breach-record.txt",
+      "size": 215,
+      "sha256": "943666d61ffeb6695f156d3d56c900373f2c1826958917bcffc88a86d39f834a",
+      "uploaded": "2026-09-18T09:20:00+00:00"
+    }
+  ],
+  "maps": {
+    "investigation": {
+      "nodes": [
+        {
+          "id": "n6b33cc7beb9",
+          "type": "target",
+          "title": "Target",
+          "x": 640,
+          "y": 440,
+          "rows": [
+            {
+              "id": "reae67d0402f",
+              "text": "Jordan A. Rivera",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "nd64fde84da1",
+          "type": "bio",
+          "title": "Bio",
+          "x": 560,
+          "y": 120,
+          "rows": [
+            {
+              "id": "r4752ed7fa7d",
+              "text": "Full Name: Jordan Alexander Rivera",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "rba0903e8e4d",
+              "text": "DOB: 1988-04-12",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r665b16c7e4d",
+              "text": "SSN: \u2022\u2022\u2022-\u2022\u2022-4821",
+              "url": "",
+              "flags": [
+                "unverified"
+              ]
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n426ce45bcce",
+          "type": "emails",
+          "title": "Emails",
+          "x": 360,
+          "y": 180,
+          "rows": [
+            {
+              "id": "r0addf16e27c",
+              "text": "j.rivera88@example.com",
+              "url": "",
+              "flags": [
+                "important",
+                "verified"
+              ]
+            },
+            {
+              "id": "r50d1144053e",
+              "text": "jrivera@acme-example.com",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r9aeb543819a",
+              "text": "rivera.jordan@mail.example",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            }
+          ],
+          "notes": "Primary address j.rivera88@example.com confirmed via avatar hit and breach corroboration.",
+          "timestamp": "2026-09-15T10:30",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n9e604f082ff",
+          "type": "usernames",
+          "title": "Usernames",
+          "x": 120,
+          "y": 250,
+          "rows": [
+            {
+              "id": "r8341fd5ead0",
+              "text": "jrivera88",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r076c5384080",
+              "text": "j_rivera_real",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "rad065e0fa1d",
+              "text": "riveraj",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n690ac297d08",
+          "type": "phone",
+          "title": "Phone",
+          "x": 820,
+          "y": 160,
+          "rows": [
+            {
+              "id": "rf64c7d8f91f",
+              "text": "+1 415-555-0142 (mobile)",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r6bbbd2e5f99",
+              "text": "+1 415-555-0199 (VoIP)",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n11590c8a78e",
+          "type": "social",
+          "title": "Social Media",
+          "x": 1060,
+          "y": 140,
+          "rows": [
+            {
+              "id": "re4419af0fb3",
+              "text": "Twitter: @jrivera88",
+              "url": "https://twitter.example/jrivera88",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "ra94b4f40786",
+              "text": "Facebook: /jordan.rivera.9041",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "rd5e948393fe",
+              "text": "LinkedIn: /in/jordan-rivera-pm",
+              "url": "https://linkedin.example/in/jordan-rivera-pm",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "ra3452f9db58",
+              "text": "Yelp Business: Rivera Photography",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r08dfedb09b0",
+              "text": "Amazon: wishlist/JRIVERA88",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            },
+            {
+              "id": "r9c299dee717",
+              "text": "Google: reviews as 'Jordan R.'",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r47bdf6dc2d5",
+              "text": "Instagram: @jordan.rivera.photos",
+              "url": "https://instagram.example/jordan.rivera.photos",
+              "flags": [
+                "important"
+              ]
+            },
+            {
+              "id": "r7ab12279b4a",
+              "text": "Outlook: j.rivera@mail.example",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "Twitter and Instagram linked via identical profile photo and cross-posted content.",
+          "timestamp": "2026-09-16T14:00",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n75bc923a591",
+          "type": "education",
+          "title": "Education",
+          "x": 360,
+          "y": 400,
+          "rows": [
+            {
+              "id": "rc3896a2cc70",
+              "text": "University: State University \u2014 B.S. Computer Science (2010)",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r858448c2301",
+              "text": "High School: Lincoln High, Portland OR (2006)",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n6bd7b7f4459",
+          "type": "cars",
+          "title": "Cars",
+          "x": 120,
+          "y": 470,
+          "rows": [
+            {
+              "id": "rcd60317f142",
+              "text": "Blue 2019 sedan \u2014 plate 7ABC123 (CA)",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            },
+            {
+              "id": "r68de8baafc4",
+              "text": "",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n11bd858fa98",
+          "type": "images",
+          "title": "Images",
+          "x": 960,
+          "y": 440,
+          "rows": [
+            {
+              "id": "rd389ca9c516",
+              "text": "Google: 3 profile-photo matches (reverse image)",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "rc25e61be895",
+              "text": "News: local TV 2021 community segment",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n19be17b8672",
+          "type": "address",
+          "title": "Address",
+          "x": 430,
+          "y": 560,
+          "rows": [
+            {
+              "id": "rc9ccd7b4388",
+              "text": "1420 Example St, Oakland CA 94607",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r43e2b1b1c90",
+              "text": "PO Box 88, Oakland CA 94604",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            }
+          ],
+          "notes": "Residential address corroborated by voter registration and county property record.",
+          "timestamp": "2026-09-20T11:00",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n017f60a86d4",
+          "type": "cases",
+          "title": "Cases",
+          "x": 180,
+          "y": 700,
+          "rows": [
+            {
+              "id": "r5a02e182c34",
+              "text": "Court cases: none found (county superior)",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r9b75a8e4415",
+              "text": "Traffic: 1 speeding citation (2022)",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r8d2343b3dae",
+              "text": "Voting: registered, county roll",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r169ffec5f32",
+              "text": "Gov record: DBA 'Rivera Photography' (2020)",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n06b033516ea",
+          "type": "domains",
+          "title": "Domains",
+          "x": 900,
+          "y": 650,
+          "rows": [
+            {
+              "id": "r9af3319db45",
+              "text": "riveraphoto.example \u2014 registered 2020 (WHOIS privacy)",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            },
+            {
+              "id": "r3c216f2f48a",
+              "text": "jrivera.example \u2014 personal blog",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n30bffba3257",
+          "type": "related",
+          "title": "Related",
+          "x": 1120,
+          "y": 560,
+          "rows": [
+            {
+              "id": "rf1e175e1caf",
+              "text": "Spouse: Casey Rivera (@casey.r)",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r4a76e4ba959",
+              "text": "Associate: Morgan Lee \u2014 business partner",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "Spouse Casey Rivera identified through tagged photos and shared address.",
+          "timestamp": "2026-09-22T16:45",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "n74943c65a97",
+          "type": "gov",
+          "title": "Gov",
+          "x": 260,
+          "y": 880,
+          "rows": [
+            {
+              "id": "re9e57aec5de",
+              "text": "Driver license: state R1234567",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "rd113e60c8dd",
+              "text": "Traffic: see Cases node",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r5b2a02e5d89",
+              "text": "Voting: party affiliation on file",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r3d762077b8a",
+              "text": "Business license: Rivera Photography LLC #BL-88231",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        },
+        {
+          "id": "nde7c696c0f2",
+          "type": "breaches",
+          "title": "Breaches",
+          "x": 580,
+          "y": 880,
+          "rows": [
+            {
+              "id": "r55091249973",
+              "text": "Passwords: 2012 breach \u2014 'Summer2011!' (cracked)",
+              "url": "",
+              "flags": [
+                "important",
+                "verified"
+              ]
+            },
+            {
+              "id": "rb9c422f8ca7",
+              "text": "Addresses: combo list \u2014 1420 Example St",
+              "url": "",
+              "flags": []
+            },
+            {
+              "id": "r7b126d080c5",
+              "text": "IPs: 203.0.113.44 (ISP, Oakland)",
+              "url": "",
+              "flags": [
+                "followup"
+              ]
+            },
+            {
+              "id": "r6e6fdb92be2",
+              "text": "Usernames: 'jrivera88' reused on 6+ sites",
+              "url": "",
+              "flags": [
+                "important"
+              ]
+            }
+          ],
+          "notes": "Target appears in a 2012 breach and a later combo list. Reused password pattern 'Summer<year>!' identified \u2014 relevant to account-recovery risk.",
+          "timestamp": "2026-09-18T09:15",
+          "evidence": [
+            "ev5c12ec1df4"
+          ],
+          "flags": [
+            "important"
+          ]
+        },
+        {
+          "id": "n8507395cdee",
+          "type": "business",
+          "title": "Business",
+          "x": 900,
+          "y": 840,
+          "rows": [
+            {
+              "id": "r4f31de13f37",
+              "text": "Product Manager @ Acme (example) (2018\u2013present)",
+              "url": "",
+              "flags": [
+                "verified"
+              ]
+            },
+            {
+              "id": "r86fad2e6280",
+              "text": "Owner \u2014 Rivera Photography LLC",
+              "url": "",
+              "flags": []
+            }
+          ],
+          "notes": "",
+          "timestamp": "",
+          "evidence": [],
+          "flags": []
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0386220a148",
+          "from": "n6b33cc7beb9",
+          "to": "nd64fde84da1",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "e47bb24c8fbb",
+          "from": "n6b33cc7beb9",
+          "to": "n426ce45bcce",
+          "fromRow": null,
+          "toRow": null,
+          "label": "email"
+        },
+        {
+          "id": "ef1c6b5bd0a4",
+          "from": "n6b33cc7beb9",
+          "to": "n9e604f082ff",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "eb1748a7404d",
+          "from": "n6b33cc7beb9",
+          "to": "n690ac297d08",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "e49d9d6388ea",
+          "from": "n6b33cc7beb9",
+          "to": "n11590c8a78e",
+          "fromRow": null,
+          "toRow": null,
+          "label": "Social Media"
+        },
+        {
+          "id": "eedd8368e012",
+          "from": "n6b33cc7beb9",
+          "to": "n75bc923a591",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "e8b3650b822c",
+          "from": "n6b33cc7beb9",
+          "to": "n6bd7b7f4459",
+          "fromRow": null,
+          "toRow": null,
+          "label": "cars"
+        },
+        {
+          "id": "e0bc64e7c6b0",
+          "from": "n6b33cc7beb9",
+          "to": "n11bd858fa98",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "e338a9ff6e6c",
+          "from": "n6b33cc7beb9",
+          "to": "n19be17b8672",
+          "fromRow": null,
+          "toRow": null,
+          "label": "Address"
+        },
+        {
+          "id": "e6c8fd0cb292",
+          "from": "n6b33cc7beb9",
+          "to": "n017f60a86d4",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "ed0df270f1f8",
+          "from": "n6b33cc7beb9",
+          "to": "n06b033516ea",
+          "fromRow": null,
+          "toRow": null,
+          "label": "Domain"
+        },
+        {
+          "id": "ea97fbcb8b38",
+          "from": "n6b33cc7beb9",
+          "to": "n30bffba3257",
+          "fromRow": null,
+          "toRow": null,
+          "label": "Related"
+        },
+        {
+          "id": "e39a097c801f",
+          "from": "n6b33cc7beb9",
+          "to": "n74943c65a97",
+          "fromRow": null,
+          "toRow": null,
+          "label": "gov"
+        },
+        {
+          "id": "e2c90a0b6153",
+          "from": "n6b33cc7beb9",
+          "to": "nde7c696c0f2",
+          "fromRow": null,
+          "toRow": null,
+          "label": ""
+        },
+        {
+          "id": "eb820738d73e",
+          "from": "n6b33cc7beb9",
+          "to": "n8507395cdee",
+          "fromRow": null,
+          "toRow": null,
+          "label": "Work"
+        }
+      ],
+      "view": {
+        "x": 120,
+        "y": -40,
+        "scale": 0.5
+      }
+    },
+    "sockpuppet": {
+      "nodes": [],
+      "edges": [],
+      "view": {
+        "x": 0,
+        "y": 0,
+        "scale": 1
+      }
+    }
+  }
+}

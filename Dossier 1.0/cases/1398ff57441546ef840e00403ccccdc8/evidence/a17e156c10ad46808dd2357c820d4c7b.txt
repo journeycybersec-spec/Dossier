@@ -1,0 +1,6 @@
+2012 breach record (example / fictional)
+----------------------------------------
+email : j.rivera88@example.com
+hash  : 5f4dcc3b5aa765d61d8327deb882cf99 (cracked)
+plain : Summer2011!
+source: combo-list compilation

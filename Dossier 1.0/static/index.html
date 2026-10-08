@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dossier — Investigation Mind Map &amp; Timeline</title>
+<link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+
+<!-- ───────────────────────────── Auth / unlock ───────────────────────────── -->
+<div id="auth" class="launcher hidden">
+  <div class="launcher-card" style="width:min(420px,94vw)">
+    <h1><span class="logo">🗂</span> Dossier</h1>
+    <p class="tagline" id="auth-sub">Sign in to your case vault</p>
+    <div class="auth-form">
+      <input id="auth-user" type="text" placeholder="Name" autocomplete="username" />
+      <input id="auth-pass" type="password" placeholder="Password" autocomplete="current-password" />
+      <input id="auth-pass2" type="password" placeholder="Confirm password" class="hidden" autocomplete="new-password" />
+      <button id="auth-btn" class="btn btn-primary">Unlock</button>
+    </div>
+    <div id="auth-err" class="auth-err"></div>
+  </div>
+</div>
+
+<!-- ───────────────────────── Case management dashboard ───────────────────── -->
+<div id="launcher" class="dash hidden">
+  <header class="dash-head">
+    <div class="dash-brand"><span class="logo">🗂</span> Dossier <span class="dash-sub">Case management</span></div>
+    <div class="dash-user">
+      <span class="user-chip" id="dash-username"></span>
+      <button id="dash-settings-btn" class="btn btn-ghost btn-small" title="Settings">⚙ Settings</button>
+      <button id="logout-btn" class="btn btn-ghost btn-small">Log out</button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+    <div class="dash-toolbar">
+      <button id="new-case-toggle" class="btn btn-primary">＋ New case</button>
+      <label class="btn btn-ghost btn-small">Import .zip<input id="import-file" type="file" accept=".zip" hidden /></label>
+      <button id="activity-btn" class="btn btn-ghost btn-small">Activity</button>
+      <span class="dash-spacer"></span>
+      <input id="case-search" type="text" placeholder="Search cases…" />
+      <select id="case-sort" title="Sort">
+        <option value="modified">Recently modified</option>
+        <option value="created">Recently created</option>
+        <option value="name">Name (A–Z)</option>
+        <option value="nodes">Most entities</option>
+      </select>
+      <span class="hint" id="case-count"></span>
+    </div>
+
+    <div id="new-case-panel" class="new-case-panel hidden">
+      <input id="new-case-name" type="text" placeholder="Case name, e.g. RANSOM-2026-014" />
+      <input id="new-case-number" type="text" placeholder="Case #" class="nc-small" />
+      <input id="new-case-analyst" type="text" placeholder="Analyst" class="nc-small" />
+      <label class="nc-tpl">Start from <select id="template-select"></select></label>
+      <span class="hint" id="template-default-hint"></span>
+      <button id="create-case" class="btn btn-primary btn-small">Create case</button>
+    </div>
+
+    <div id="case-list" class="case-table-wrap"></div>
+  </div>
+</div>
+
+<!-- ───────────────────────────── Workspace ──────────────────────────────── -->
+<div id="workspace" class="workspace hidden">
+
+  <header class="topbar">
+    <button id="back-btn" class="btn btn-ghost" title="Back to cases">☰</button>
+    <button id="case-title" class="case-title" title="Case details &amp; version history">—</button>
+    <span id="save-state" class="save-state">saved</span>
+
+    <div class="tabs">
+      <button class="tab active" data-view="map">Mind map</button>
+      <button class="tab" data-view="timeline">Timeline</button>
+      <button class="tab" data-view="index">Index</button>
+      <button class="tab" data-view="evidence">Evidence</button>
+    </div>
+
+    <div class="topbar-right">
+      <span class="hint" id="toolbar-hint"></span>
+      <button id="settings-btn" class="btn btn-ghost" title="Settings">⚙</button>
+      <div class="export-menu-wrap">
+        <button id="export-btn" class="btn btn-ghost" title="Export the case">Export ▾</button>
+        <div id="export-menu" class="export-menu hidden">
+          <button data-exp="pdf">📄 Case report — PDF</button>
+          <button data-exp="word">📝 Case report — Word (.doc)</button>
+          <button data-exp="json">{ } Case data — JSON</button>
+          <button data-exp="png">🖼 Map image — PNG</button>
+          <div class="export-sep"></div>
+          <button data-exp="zip">🗜 Full bundle — .zip (with evidence files)</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Mind-map view ── -->
+  <section id="view-map" class="view">
+    <div class="map-toolbar">
+      <span class="map-switch">
+        <button class="ms-tab active" data-map="investigation">Investigation</button>
+        <button class="ms-tab" data-map="sockpuppet">🧦 Sock Puppet</button>
+      </span>
+      <span class="divider"></span>
+      <button class="btn btn-small" id="add-node">+ Node</button>
+      <button class="btn btn-small" id="fit-view">Fit</button>
+      <button class="btn btn-small" id="undo-btn" title="Undo (Ctrl+Z)" disabled>↶</button>
+      <button class="btn btn-small" id="redo-btn" title="Redo (Ctrl+Shift+Z)" disabled>↷</button>
+      <div class="filter-wrap">
+        <button class="btn btn-small" id="filter-btn" title="Filter the map">Filter</button>
+        <div id="filter-menu" class="filter-menu hidden"></div>
+      </div>
+      <button class="btn btn-small hidden" id="sp-reset" title="Reset the Sock Puppet map to the default layout">Reset layout</button>
+      <div class="map-search">
+        <input id="map-search-input" type="text" placeholder="Search nodes &amp; fields…  (Ctrl+F)" autocomplete="off" />
+        <div id="map-search-results" class="map-search-results hidden"></div>
+      </div>
+      <span class="divider"></span>
+      <span class="legend" id="legend"></span>
+      <span class="divider"></span>
+      <span class="hint">Double-click canvas to add · drag the ◇ handle to link · Del removes</span>
+    </div>
+    <div id="map-canvas" class="map-canvas">
+      <svg id="edge-layer" class="edge-layer"></svg>
+      <div id="node-layer" class="node-layer"></div>
+      <svg id="edge-top" class="edge-top-layer"></svg>
+      <div id="map-empty" class="map-empty">Double-click anywhere to drop your first node.</div>
+
+      <div class="export-dock">
+        <button id="exp-data" class="exp-btn" title="Export data (JSON)">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6" fill="none"/></svg>
+          <span class="exp-lbl">JSON</span>
+        </button>
+        <button id="exp-pdf" class="exp-btn" title="Export case report as PDF (print / save)">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6" fill="none"/></svg>
+          <span class="exp-lbl">PDF</span>
+        </button>
+        <button id="exp-word" class="exp-btn" title="Export case report as Word (.doc)">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13l1.5 4 1.5-4 1.5 4 1.5-4" fill="none"/></svg>
+          <span class="exp-lbl">DOC</span>
+        </button>
+        <button id="exp-image" class="exp-btn" title="Export map image (PNG)">
+          <svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6" fill="none"/><path d="M21 16l-5-5L5 20" fill="none"/></svg>
+          <span class="exp-lbl">PNG</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Timeline view ── -->
+  <section id="view-timeline" class="view hidden">
+    <div class="tl-toolbar">
+      <span class="seg">
+        <button class="seg-btn active" data-tlmode="list">List</button>
+        <button class="seg-btn" data-tlmode="graphic">Graphic</button>
+      </span>
+      <button class="btn btn-small" id="add-event">+ Event</button>
+      <button class="btn btn-small" id="tl-expand-all">Expand all</button>
+      <label class="chk"><input type="checkbox" id="tl-include-nodes" checked /> include node timestamps</label>
+      <span class="hint" id="tl-count"></span>
+    </div>
+    <div id="timeline" class="timeline"></div>
+  </section>
+
+  <!-- ── Index view (aggregated field values) ── -->
+  <section id="view-index" class="view hidden">
+    <div class="idx-toolbar">
+      <input id="idx-search" type="text" placeholder="Search all field values…" />
+      <span class="seg">
+        <button class="seg-btn active" data-group="category">By category</button>
+        <button class="seg-btn" data-group="type">By detected type</button>
+        <button class="seg-btn" data-group="flag">By flag</button>
+      </span>
+      <label class="chk"><input type="checkbox" id="idx-flagged" /> flagged only</label>
+      <label class="chk"><input type="checkbox" id="idx-unique" /> unique only</label>
+      <span class="hint" id="idx-count"></span>
+    </div>
+    <div id="index-list" class="index-list"></div>
+  </section>
+
+  <!-- ── Evidence view ── -->
+  <section id="view-evidence" class="view hidden">
+    <div class="ev-toolbar">
+      <label class="btn btn-small btn-primary">
+        + Upload evidence<input id="evidence-file" type="file" hidden />
+      </label>
+      <span class="hint">Files are copied into the case and hashed (SHA-256).</span>
+    </div>
+    <div id="evidence-grid" class="evidence-grid"></div>
+  </section>
+
+  <!-- ── Inspector (right drawer) ── -->
+  <aside id="inspector" class="inspector hidden"></aside>
+</div>
+
+<!-- ───────────────────────────── Settings modal ─────────────────────────── -->
+<div id="settings-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Settings</h3>
+      <button class="insp-close" id="settings-close">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <h4>Users</h4>
+      <p class="muted">Each user signs in with their name and password.</p>
+      <div class="cat-add" id="user-add-row">
+        <input type="text" id="user-name" placeholder="Name" maxlength="60" />
+        <input type="password" id="user-pass" placeholder="Password" />
+        <select id="user-role"><option value="analyst">Analyst</option><option value="admin">Admin</option></select>
+        <button class="btn btn-primary btn-small" id="user-add-btn">Add user</button>
+      </div>
+      <div id="user-list" class="cat-list"></div>
+
+      <div class="pw-change">
+        <b>Change your password</b>
+        <div class="cat-add" style="margin-top:8px">
+          <input type="password" id="pw-current" placeholder="Current password" autocomplete="current-password" />
+          <input type="password" id="pw-new" placeholder="New password" autocomplete="new-password" />
+          <button class="btn btn-small" id="pw-change-btn">Update</button>
+        </div>
+      </div>
+
+      <h4 style="margin-top:26px">Custom categories</h4>
+      <p class="muted">Add your own node categories. They appear in every case,
+        in the node Category dropdown, and are color-coded on the map.</p>
+
+      <div class="cat-add">
+        <input type="text" id="cat-name" placeholder="Category name, e.g. Crypto wallet" maxlength="40" />
+        <input type="color" id="cat-color" value="#5ad1c2" title="Colour" />
+        <button class="btn btn-primary btn-small" id="cat-add-btn">Add</button>
+      </div>
+
+      <div id="cat-list" class="cat-list"></div>
+
+      <h4 style="margin-top:26px">Custom flags</h4>
+      <p class="muted">Add your own triage markers (alongside Important, Follow-up,
+        Verified, Not verified). They can be toggled on fields and nodes.</p>
+
+      <div class="cat-add">
+        <input type="text" id="flag-icon" placeholder="icon" maxlength="2"
+          style="width:60px;flex:none;text-align:center" />
+        <input type="text" id="flag-name" placeholder="Flag name, e.g. False positive" maxlength="30" />
+        <input type="color" id="flag-color" value="#c58bff" title="Colour" />
+        <button class="btn btn-primary btn-small" id="flag-add-btn">Add</button>
+      </div>
+
+      <div id="flag-list" class="cat-list"></div>
+
+      <h4 style="margin-top:26px">Default templates</h4>
+      <p class="muted">Build a map how you like on the canvas, then save it here to
+        override that template. New cases from it use your version; Reset restores
+        the built-in. Use Export/Import to back up or share your whole template set.</p>
+      <div id="tpl-list" class="tpl-list"></div>
+      <div class="tpl-io">
+        <button class="btn btn-small" id="tpl-export">⬇ Export all templates</button>
+        <label class="btn btn-small" style="cursor:pointer">⬆ Import templates<input id="tpl-import" type="file" accept=".json,application/json" hidden /></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────── Activity (global audit) ────────────────── -->
+<div id="activity-modal" class="modal-overlay hidden">
+  <div class="modal" style="width:min(780px,96vw)">
+    <div class="modal-head">
+      <h3>Activity <span id="audit-verify" class="verify-badge"></span></h3>
+      <button class="insp-close" id="activity-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="act-filters">
+        <input type="text" id="act-search" placeholder="Search activity…" />
+        <select id="act-user"><option value="">All users</option></select>
+        <select id="act-action"><option value="">All actions</option></select>
+        <span class="hint" id="act-count"></span>
+      </div>
+      <div id="act-list" class="audit-list" style="max-height:60vh"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────── Case details modal ─────────────────────── -->
+<div id="case-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-head"><h3>Case details</h3>
+      <button class="insp-close" id="case-close">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Case name</label><input type="text" id="ci-name" /></div>
+      <div class="field"><label>Case number</label><input type="text" id="ci-number" placeholder="e.g. INV-2026-014" /></div>
+      <div class="field"><label>Analyst</label><input type="text" id="ci-analyst" /></div>
+      <div class="field"><label>Classification</label>
+        <select id="ci-class">
+          <option value="">— none —</option>
+          <option>TLP:CLEAR</option><option>TLP:GREEN</option>
+          <option>TLP:AMBER</option><option>TLP:AMBER+STRICT</option><option>TLP:RED</option>
+        </select></div>
+      <div class="field"><label>Summary</label><textarea id="ci-summary" placeholder="Case overview / scope…"></textarea></div>
+
+      <h4 style="margin-top:22px">Access</h4>
+      <p class="muted">The owner and admins control who can open this case.</p>
+      <div class="field"><label>Owner</label><select id="ci-owner"></select></div>
+      <div class="field"><label>Assignees</label><div id="ci-assignees" class="assignee-list"></div></div>
+
+      <h4 style="margin-top:22px">Version history</h4>
+      <p class="muted">Snapshots are saved copies of the whole case you can restore. A backup is taken automatically before any restore.</p>
+      <div class="cat-add">
+        <input type="text" id="snap-label" placeholder="Snapshot label (optional)" />
+        <button class="btn btn-primary btn-small" id="snap-save">Save snapshot</button>
+      </div>
+      <div id="snap-list" class="snap-list"></div>
+
+      <h4 style="margin-top:22px">Activity log</h4>
+      <p class="muted">Who changed what, and when.</p>
+      <div id="audit-list" class="audit-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────── Evidence lightbox ──────────────────────── -->
+<div id="lightbox" class="lightbox hidden">
+  <div class="lb-bar">
+    <span class="lb-name"></span>
+    <a class="lb-dl btn btn-small" href="#">Download</a>
+    <button class="lb-close btn btn-small" title="close">✕</button>
+  </div>
+  <div class="lb-stage"><img class="lb-img" alt="" /></div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/static/js/api.js"></script>
+<script src="/static/js/auth.js"></script>
+<script src="/static/js/state.js"></script>
+<script src="/static/js/inspector.js"></script>
+<script src="/static/js/mindmap.js"></script>
+<script src="/static/js/timeline.js"></script>
+<script src="/static/js/evidence.js"></script>
+<script src="/static/js/collections.js"></script>
+<script src="/static/js/settings.js"></script>
+<script src="/static/js/search.js"></script>
+<script src="/static/js/caseinfo.js"></script>
+<script src="/static/js/activity.js"></script>
+<script src="/static/js/export.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

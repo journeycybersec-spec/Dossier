@@ -15,7 +15,7 @@ calls. Each case is a self-contained folder you can zip up and hand to someone.
 > use. Run it **only on a secure, access-controlled host** — it binds to
 > `127.0.0.1` by design; never expose it to the internet or an untrusted network.
 
-
+Note: all documents are in the zip
 
 ## Features
 
